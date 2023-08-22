@@ -1,0 +1,127 @@
+# general settings
+name: 101_train_ECBSR_x2_m4c16_prelu_TFSR
+model_type: SRModel
+scale: 2
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: TFSR
+    type: PairedImageDatasetTFSR
+    dataroot_gt: /data0_ssd2t/majianqi/TFSR
+    dataroot_lq: /data0_ssd2t/majianqi/TFSR
+    meta_info_file: None
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+
+    gt_size: 128
+    use_hflip: true
+    use_rot: true
+    #color: y
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 12
+    batch_size_per_gpu: 32
+    dataset_enlarge_ratio: 10
+    prefetch_mode: ~
+
+  val_13mm:  # the 1st test dataset
+    name: 13mm
+    type: PairedImageDataset
+    dataroot_gt: /data0_ssd2t/majianqi/TFSR/val/52mm
+    dataroot_lq: /data0_ssd2t/majianqi/TFSR/val/13mm
+    io_backend:
+      type: disk
+  val_26mm:  # the 2nd test dataset
+    name: 26mm
+    type: PairedImageDataset
+    dataroot_gt: /data0_ssd2t/majianqi/TFSR/val/52mm
+    dataroot_lq: /data0_ssd2t/majianqi/TFSR/val/26mm
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: ECBSR
+  num_in_ch: 3
+  num_out_ch: 3
+  num_block: 4
+  num_channel: 16
+  with_idt: False
+  act_type: prelu
+  scale: 2
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+# training settings
+train:
+  ema_decay: 0
+  optim_g:
+    type: Adam
+    lr: !!float 5e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: MultiStepLR
+    milestones: [1600000]
+    gamma: 1
+
+  total_iter: 1600000
+  warmup_iter: -1  # no warm up
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+
+# validation settings
+val:
+  val_freq: !!float 50000  # the same as the original setting. # TODO: Can be larger
+  save_img: false
+  pbar: True
+
+  metrics:
+    psnr:
+      type: calculate_psnr
+      crop_border: 2
+      #test_y_channel: true
+      better: higher  # the higher, the better. Default: higher
+    ssim:
+      type: calculate_ssim
+      crop_border: 2
+      #test_y_channel: true
+      better: higher  # the higher, the better. Default: higher
+    psnr_y:
+      type: calculate_psnr
+      crop_border: 2
+      test_y_channel: true
+      better: higher  # the higher, the better. Default: higher
+    ssim_y:
+      type: calculate_ssim
+      crop_border: 2
+      test_y_channel: true
+      better: higher  # the higher, the better. Default: higher
+
+# logging settings
+logger:
+  print_freq: 100
+  save_checkpoint_freq: !!float 5000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

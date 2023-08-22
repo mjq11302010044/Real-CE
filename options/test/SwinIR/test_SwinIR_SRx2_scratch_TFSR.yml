@@ -1,0 +1,82 @@
+# general settings
+name: test_SwinIR_SRx2_scratch_P64W8_TFSR_500k_B4G8_LSVTPretrain_TFSR_ft
+model_type: SwinIRModel
+scale: 2
+num_gpu: auto
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+
+  test_13mm:  # the 1st test dataset
+    name: 13mm
+    type: PairedImageDataset
+    dataroot_gt: /data0_ssd2t/majianqi/TFSR/val/52mm
+    dataroot_lq: /data0_ssd2t/majianqi/TFSR/val/13mm
+    io_backend:
+      type: disk
+  test_26mm:  # the 2nd test dataset
+    name: 26mm
+    type: PairedImageDataset
+    dataroot_gt: /data0_ssd2t/majianqi/TFSR/val/52mm
+    dataroot_lq: /data0_ssd2t/majianqi/TFSR/val/26mm
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: SwinIR
+  upscale: 2
+  in_chans: 3
+  img_size: 64
+  window_size: 8
+  img_range: 1.
+  depths: [4, 4, 4, 4, 4, 4]
+  embed_dim: 180
+  num_heads: [4, 4, 4, 4, 4, 4]
+  mlp_ratio: 2
+  upsampler: 'pixelshuffle'
+  resi_connection: '1conv'
+
+# path
+path:
+  pretrain_network_g: experiments/train_SwinIR_SRx2_scratch_P64W8_TFSR_500k_B4G8_LSVTPretrain_TFSR_ft/models/net_g_50000.pth
+  strict_load_g: true
+  resume_state: ~
+
+# validation settings
+val:
+  save_img: true
+  suffix: ~
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 2
+      test_y_channel: false
+    ssim:
+      type: calculate_ssim
+      crop_border: 2
+      test_y_channel: false
+    psnr_y: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 2
+      test_y_channel: true
+    ssim_y:
+      type: calculate_ssim
+      crop_border: 2
+      test_y_channel: true
+
+# logging settings
+logger:
+  print_freq: 100
+  save_checkpoint_freq: !!float 5e3
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

@@ -1,0 +1,89 @@
+name: test_RRDB_SRx4_scratch_v2_TFSR_retest
+model_type: SRModel
+scale: 4
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 0
+
+datasets:
+  val:
+    name: TFSR
+    type: PairedImageDatasetTFSRwRECwLabelMapwCannyv2
+    dataroot_gt: /data0_ssd2t/majianqi/TFSR
+    dataroot_lq: /data0_ssd2t/majianqi/TFSR
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: RRDBNet
+  num_in_ch: 3
+  num_out_ch: 3
+  num_feat: 64
+  num_block: 23
+  num_grow_ch: 32
+  scale: 4
+
+# path
+path:
+  pretrain_network_g: /home/majianqi/workspace/BasicSR/experiments/051_RRDBNet_PSNR_x4_TFSR_ft/models/net_g_20000.pth
+  strict_load_g: true
+  experiments_root: /data1_ssd4t/majianqi/experiments/test_RRDB_SRx2_scratch_v2_retest/
+  param_key_g: 'params_ema'
+
+# validation settings
+val:
+  # save_img: true
+  suffix: test_RRDB_SRx2_scratch_v2_retest # add suffix to saved images, if None, use exp name
+  save_img: true
+  pbar: false
+  save_recognition: true
+
+  metrics:
+    psnr_torch: # metric name, can be arbitrary
+      type: calculate_psnr_torch
+      crop_border: 2
+      test_y_channel: false
+    ssim_torch:
+      type: calculate_ssim_torch
+      crop_border: 2
+      test_y_channel: false
+    mask_ssim:
+      type: calculate_region_ssim
+      crop_border: 2
+      test_y_channel: false
+    mask_psnr:
+      type: calculate_region_psnr
+      crop_border: 2
+      test_y_channel: false
+    lpips:
+      type: calculate_lpips
+      crop_border: 2
+      test_y_channel: false
+    recognition:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
+    ned:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
+    recognition_divide:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
+    recognition_CHN:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
+    recognition_ENG:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
+    ned_CHN:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
+    ned_ENG:
+      type: calculate_recognition_case_insensitive_langdivide
+      crop_border: 2
+      test_y_channel: false
