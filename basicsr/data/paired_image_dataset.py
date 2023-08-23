@@ -76,7 +76,7 @@ def apply_translation(img_lr, img_hr):
     return img_lr, img_hr
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSR(data.Dataset):
+class PairedImageDatasetRealCE(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -106,7 +106,7 @@ class PairedImageDatasetTFSR(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSR, self).__init__()
+        super(PairedImageDatasetRealCE, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -1968,7 +1968,7 @@ def get_OtherDevice(opt, gt_folder):
     return paths
 
 
-def get_TFSR(opt, gt_folder):
+def get_RealCE(opt, gt_folder):
     phase = opt['phase']#"val" #
     gt_folder = os.path.join(gt_folder, phase) #"opt['phase']"
 
@@ -2114,7 +2114,7 @@ def get_RealSR(opt, gt_folder, scale=4):
     return paths
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSRwREC(data.Dataset):
+class PairedImageDatasetRealCEwREC(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -2144,7 +2144,7 @@ class PairedImageDatasetTFSRwREC(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSRwREC, self).__init__()
+        super(PairedImageDatasetRealCEwREC, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -2176,8 +2176,8 @@ class PairedImageDatasetTFSRwREC(data.Dataset):
             # elif 'meta_info_file' in self.opt and self.opt['meta_info_file'] is not None:
             #     self.paths = paired_paths_from_meta_info_file([self.lq_folder, self.gt_folder], ['lq', 'gt'],
             #                                                   self.opt['meta_info_file'], self.filename_tmpl)
-            elif "TFSR" in gt_folder:
-                self.paths.extend(get_TFSR(self.opt, gt_folder))
+            elif "RealCE" in gt_folder:
+                self.paths.extend(get_RealCE(self.opt, gt_folder))
             elif "ReCTS" in gt_folder:
                 self.paths.extend(get_ReCTS(self.opt, gt_folder))
             elif "LSVT" in gt_folder:
@@ -2327,7 +2327,7 @@ class PairedImageDatasetTFSRwREC(data.Dataset):
 
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSRwRECwLabelMap(data.Dataset):
+class PairedImageDatasetRealCEwRECwLabelMap(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -2357,7 +2357,7 @@ class PairedImageDatasetTFSRwRECwLabelMap(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSRwRECwLabelMap, self).__init__()
+        super(PairedImageDatasetRealCEwRECwLabelMap, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -2389,8 +2389,8 @@ class PairedImageDatasetTFSRwRECwLabelMap(data.Dataset):
             # elif 'meta_info_file' in self.opt and self.opt['meta_info_file'] is not None:
             #     self.paths = paired_paths_from_meta_info_file([self.lq_folder, self.gt_folder], ['lq', 'gt'],
             #                                                   self.opt['meta_info_file'], self.filename_tmpl)
-            elif "TFSR" in gt_folder:
-                self.paths.extend(get_TFSR(self.opt, gt_folder))
+            elif "RealCE" in gt_folder:
+                self.paths.extend(get_RealCE(self.opt, gt_folder))
             elif "ReCTS" in gt_folder:
                 self.paths.extend(get_ReCTS(self.opt, gt_folder))
             elif "LSVT" in gt_folder:
@@ -2633,7 +2633,7 @@ class PairedImageDatasetTFSRwRECwLabelMap(data.Dataset):
 
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSRwRECwLabelMapwCanny(data.Dataset):
+class PairedImageDatasetRealCEwRECwLabelMapwCanny(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -2663,7 +2663,7 @@ class PairedImageDatasetTFSRwRECwLabelMapwCanny(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSRwRECwLabelMapwCanny, self).__init__()
+        super(PairedImageDatasetRealCEwRECwLabelMapwCanny, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -2695,8 +2695,8 @@ class PairedImageDatasetTFSRwRECwLabelMapwCanny(data.Dataset):
             # elif 'meta_info_file' in self.opt and self.opt['meta_info_file'] is not None:
             #     self.paths = paired_paths_from_meta_info_file([self.lq_folder, self.gt_folder], ['lq', 'gt'],
             #                                                   self.opt['meta_info_file'], self.filename_tmpl)
-            elif "TFSR" in gt_folder:
-                self.paths.extend(get_TFSR(self.opt, gt_folder))
+            elif "RealCE" in gt_folder:
+                self.paths.extend(get_RealCE(self.opt, gt_folder))
             elif "ReCTS" in gt_folder:
                 self.paths.extend(get_ReCTS(self.opt, gt_folder))
             elif "LSVT" in gt_folder:
@@ -3077,7 +3077,7 @@ class PairedImageDatasetTFSRwRECwLabelMapwCanny(data.Dataset):
 
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSRwRECwLabelMapwCannyv2(data.Dataset):
+class PairedImageDatasetRealCEwRECwLabelMapwCannyv2(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -3107,7 +3107,7 @@ class PairedImageDatasetTFSRwRECwLabelMapwCannyv2(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSRwRECwLabelMapwCannyv2, self).__init__()
+        super(PairedImageDatasetRealCEwRECwLabelMapwCannyv2, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -3139,8 +3139,8 @@ class PairedImageDatasetTFSRwRECwLabelMapwCannyv2(data.Dataset):
             # elif 'meta_info_file' in self.opt and self.opt['meta_info_file'] is not None:
             #     self.paths = paired_paths_from_meta_info_file([self.lq_folder, self.gt_folder], ['lq', 'gt'],
             #                                                   self.opt['meta_info_file'], self.filename_tmpl)
-            elif "TFSR" in gt_folder:
-                self.paths.extend(get_TFSR(self.opt, gt_folder))
+            elif "RealCE" in gt_folder:
+                self.paths.extend(get_RealCE(self.opt, gt_folder))
             elif "ReCTS" in gt_folder:
                 self.paths.extend(get_ReCTS(self.opt, gt_folder))
             elif "LSVT" in gt_folder:
@@ -3567,7 +3567,7 @@ class PairedImageDatasetTFSRwRECwLabelMapwCannyv2(data.Dataset):
 
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSRwRECwLabelMapwCannyv3(data.Dataset):
+class PairedImageDatasetRealCEwRECwLabelMapwCannyv3(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -3597,7 +3597,7 @@ class PairedImageDatasetTFSRwRECwLabelMapwCannyv3(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSRwRECwLabelMapwCannyv3, self).__init__()
+        super(PairedImageDatasetRealCEwRECwLabelMapwCannyv3, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -3629,8 +3629,8 @@ class PairedImageDatasetTFSRwRECwLabelMapwCannyv3(data.Dataset):
             # elif 'meta_info_file' in self.opt and self.opt['meta_info_file'] is not None:
             #     self.paths = paired_paths_from_meta_info_file([self.lq_folder, self.gt_folder], ['lq', 'gt'],
             #                                                   self.opt['meta_info_file'], self.filename_tmpl)
-            elif "TFSR" in gt_folder:
-                self.paths.extend(get_TFSR(self.opt, gt_folder))
+            elif "RealCE" in gt_folder:
+                self.paths.extend(get_RealCE(self.opt, gt_folder))
             elif "ReCTS" in gt_folder:
                 self.paths.extend(get_ReCTS(self.opt, gt_folder))
             elif "LSVT" in gt_folder:
@@ -4028,7 +4028,7 @@ class PairedImageDatasetTFSRwRECwLabelMapwCannyv3(data.Dataset):
         return len(self.paths)
 
 @DATASET_REGISTRY.register()
-class PairedImageDatasetTFSRwRECCanny(data.Dataset):
+class PairedImageDatasetRealCEwRECCanny(data.Dataset):
     """Paired image dataset for image restoration.
 
     Read LQ (Low Quality, e.g. LR (Low Resolution), blurry, noisy, etc) and GT image pairs.
@@ -4058,7 +4058,7 @@ class PairedImageDatasetTFSRwRECCanny(data.Dataset):
     """
 
     def __init__(self, opt):
-        super(PairedImageDatasetTFSRwRECCanny, self).__init__()
+        super(PairedImageDatasetRealCEwRECCanny, self).__init__()
         self.opt = opt
         # file client (io backend)
         self.file_client = None
@@ -4090,8 +4090,8 @@ class PairedImageDatasetTFSRwRECCanny(data.Dataset):
             # elif 'meta_info_file' in self.opt and self.opt['meta_info_file'] is not None:
             #     self.paths = paired_paths_from_meta_info_file([self.lq_folder, self.gt_folder], ['lq', 'gt'],
             #                                                   self.opt['meta_info_file'], self.filename_tmpl)
-            elif "TFSR" in gt_folder:
-                self.paths.extend(get_TFSR(self.opt, gt_folder))
+            elif "RealCE" in gt_folder:
+                self.paths.extend(get_RealCE(self.opt, gt_folder))
             elif "ReCTS" in gt_folder:
                 self.paths.extend(get_ReCTS(self.opt, gt_folder))
             elif "LSVT" in gt_folder:

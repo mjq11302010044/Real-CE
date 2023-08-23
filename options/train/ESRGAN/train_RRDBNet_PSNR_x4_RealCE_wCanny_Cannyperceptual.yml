@@ -8,10 +8,10 @@ manual_seed: 0
 # dataset and data loader settings
 datasets:
   train:
-    name: TFSR
-    type: PairedImageDatasetTFSRwRECwLabelMapwCannyv2
-    dataroot_gt: /data0_ssd2t/majianqi/TFSR
-    dataroot_lq: /data0_ssd2t/majianqi/TFSR
+    name: RealCE
+    type: PairedImageDatasetRealCEwRECwLabelMapwCannyv2
+    dataroot_gt: /data0_ssd2t/majianqi/RealCE
+    dataroot_lq: /data0_ssd2t/majianqi/RealCE
     meta_info_file: None
     filename_tmpl: '{}'
     io_backend:
@@ -30,10 +30,10 @@ datasets:
     synthetic_degr: true
 
   val:
-    name: TFSR
-    type: PairedImageDatasetTFSRwRECwLabelMapwCannyv2
-    dataroot_gt: /data0_ssd2t/majianqi/TFSR
-    dataroot_lq: /data0_ssd2t/majianqi/TFSR
+    name: RealCE
+    type: PairedImageDatasetRealCEwRECwLabelMapwCannyv2
+    dataroot_gt: /data0_ssd2t/majianqi/RealCE
+    dataroot_lq: /data0_ssd2t/majianqi/RealCE
     io_backend:
       type: disk
 
@@ -51,7 +51,7 @@ path:
   pretrain_network_g: ~ #experiments/051_RRDBNet_PSNR_x4_TFSR_pretrain/models/net_g_100000.pth
   strict_load_g: false
   resume_state: ~
-  experiments_root: /data1_ssd4t/majianqi/experiments/051_RRDBNet_PSNR_x4_TFSR_ft_wCanny_MaskedCannyperceptual
+  experiments_root: /data1_ssd4t/majianqi/experiments/051_RRDBNet_PSNR_x4_RealCE_ft_wCanny_Cannyperceptual
 
 # training settings
 train:
