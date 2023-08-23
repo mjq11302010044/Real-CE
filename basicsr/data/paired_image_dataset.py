@@ -2011,11 +2011,11 @@ def get_RealCE(opt, gt_folder):
             anno_path = os.path.join(gt_folder, "trans_annos_52mm_renov", "res_" + imname.split(".")[0] + ".txt")
             anno_lines = open(anno_path, "r", encoding="utf-8").readlines()
             # print("anno_lines:", anno_lines)
-            #if scale == 4:
-            # paths.append(
-            #         {"lq_path": impath_13mm, "gt_path": impath_52mm, 'syn_degr': False, "gt_annos": anno_lines})
-            #paths.append(
-            #         {"lq_path": impath_26mm, "gt_path": impath_52mm, 'syn_degr': False, "gt_annos": anno_lines})
+            if scale == 4:
+                paths.append(
+                     {"lq_path": impath_13mm, "gt_path": impath_52mm, 'syn_degr': False, "gt_annos": anno_lines})
+            paths.append(
+                    {"lq_path": impath_26mm, "gt_path": impath_52mm, 'syn_degr': False, "gt_annos": anno_lines})
             paths.append(
                     {"lq_path": impath_52mm, "gt_path": impath_52mm, 'syn_degr': True, "gt_annos": anno_lines})
 
