@@ -23,5 +23,15 @@ This project is mainly built upon [BasicSR](https://github.com/XPixelGroup/Basic
 
 After downloading the pth files, you need to place the files in `<ROOT>/basicsr/metrics/` for weights loading.
 
+### Run the evaluation for RRDB
 
+```
+bash test_RRDB_RealCEx4.sh
+```
+
+### Run the training code for RRDB
+
+```
+bash train_RRDB_RealCEx4.sh
+```
 
