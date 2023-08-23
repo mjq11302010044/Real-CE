@@ -3,8 +3,14 @@
 _[Jianqi Ma](https://scholar.google.com/citations?user=kQUJjQQAAAAJ&hl=en), Zhetong Liang, Wangmeng Xiang, Xi Yang, [Lei Zhang](https://www4.comp.polyu.edu.hk/~cslzhang)_  
 _Department of Computing, [The Hong Kong Polytechnic University](http://www.comp.polyu.edu.hk), Hong Kong, China & OPPO Research_
 
-## License
-Please note that this dataset is made available for academic research purposes **ONLY**. Any violation of this protocol will be at his own risk. If any of the images include your information and you would like to remove them, please kindly inform us, and we will remove them from our dataset immediately.
+## License and Agreement
+Please note that this dataset is made available for **non-commercial** academic research purposes **ONLY**. Any violation of this protocol will be at his own risk. If any of the images include your information and you would like to remove them, please kindly inform us, and we will remove them from our dataset immediately.
+
+You agree not to reproduce, duplicate, copy, sell, trade, resell or exploit for any commercial purposes, any portion of the images and any portion of derived data.
+
+You agree not to further copy, publish or distribute any portion of the RealCE dataset. Except, for internal use at a single site within the same organization it is allowed to make copies of the dataset.
+
+The image contents are released upon request for research purposes only. Please contact us for details.
 
 ## Benchmark Installation
 
