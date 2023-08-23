@@ -1,5 +1,4 @@
-# [Real-CE: A Benchmark for Chinese-English Scene Text Image Super-resolution (ICCV2023)]
-(https://arxiv.org/abs/2308.03262)
+# [Real-CE: A Benchmark for Chinese-English Scene Text Image Super-resolution (ICCV2023)](https://arxiv.org/abs/2308.03262)
 
 _[Jianqi Ma](https://scholar.google.com/citations?user=kQUJjQQAAAAJ&hl=en), Zhetong Liang, Wangmeng Xiang, Xi Yang, [Lei Zhang](https://www4.comp.polyu.edu.hk/~cslzhang)_  
 _Department of Computing, [The Hong Kong Polytechnic University](http://www.comp.polyu.edu.hk), Hong Kong, China & OPPO Research_
