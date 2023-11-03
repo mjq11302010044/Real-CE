@@ -6,8 +6,8 @@ from .arch_util import ResidualBlockNoBN, default_init_weights, make_layer, Recu
 from .rrdbnet_arch import RRDBNet, TP_RRDB, CLIP_RRDBNet
 from .restormer_arch import Restormer
 from .scunet_arch import SCUNet, SCUNet_v2
-from basicsr.ops.roi_align_rotated import ROIAlignRotated
-from basicsr.ops.roi_align_rotated_inverse import ROIAlignRotatedInverse
+# from basicsr.ops.roi_align_rotated import ROIAlignRotated
+# from basicsr.ops.roi_align_rotated_inverse import ROIAlignRotatedInverse
 from basicsr.ops.adain import adaptive_instance_normalization as adain
 import cv2,os
 import numpy as np
@@ -840,8 +840,8 @@ class TE_STISR(nn.Module):
         self.global_sr_net = MSRResNet(num_in_ch=num_in_ch, num_out_ch=num_out_ch, upscale=upscale, num_feat=64)
         self.harmonization_net = HAMO_MSRResNet(num_block=4, num_in_ch=num_in_ch + num_in_ch_local, num_out_ch=num_out_ch, upscale=1, num_feat=64)
 
-        self.rroi_align = ROIAlignRotated(self.rroi_scale, spatial_scale=1, sampling_ratio=1)
-        self.rroi_align_gt = ROIAlignRotated((self.rroi_scale[0] * self.cropped_upscale, self.rroi_scale[1] * self.cropped_upscale), spatial_scale=1, sampling_ratio=1) #(self.rroi_scale[0] * self.cropped_upscale, self.rroi_scale[1] * self.cropped_upscale)
+        self.rroi_align = None # ROIAlignRotated(self.rroi_scale, spatial_scale=1, sampling_ratio=1)
+        self.rroi_align_gt = None # ROIAlignRotated((self.rroi_scale[0] * self.cropped_upscale, self.rroi_scale[1] * self.cropped_upscale), spatial_scale=1, sampling_ratio=1) #(self.rroi_scale[0] * self.cropped_upscale, self.rroi_scale[1] * self.cropped_upscale)
         # self.rroi_align_inverse = ROIAlignRotatedInverse((self.rroi_scale[0] * self.cropped_upscale, self.rroi_scale[1] * self.cropped_upscale), spatial_scale=1, sampling_ratio=1)
 
         # self.alphabet = "_" + self.alphabet
